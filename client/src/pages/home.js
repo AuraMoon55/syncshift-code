@@ -1,19 +1,30 @@
 import {useCookies} from 'react-cookie';
 
-export default function Home({setTitle, appAcc}){
+const Home = ({setTitle, appAcc}) => {
   const [user, setUser] = useCookies(['user']);
   setTitle('SyncShift Login');
 
-  const handleSubmit = (e) => {
+  const lala = async () => {
+    const era = await appAcc.get()
+    try{
+      let ra = JSON.parse(era.name);
+      await appAcc.updatePrefs(ra)
+      await appAcc.updateName(Object.values(ra)[0] + " " + Object.values(ra)[1])
+    }catch(err){
+       alert(err.message);
+    }
+  }
+  
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = e.target[0].value.trim();
     const pass = e.target[1].value.trim();
 
-    appAcc.createEmailSession(email, pass).then((er) => {
-      console.log(er);
-      setUser('name', JSON.stringify(er))
-      window.location.href = '/checkin';
-    });
+    const er = await appAcc.createEmailSession(email, pass)
+    console.log(er);
+    setUser('name', JSON.stringify(er))
+    await lala();
+    window.location.href = '/checkin';
     
   };
    const lemao = () => {
@@ -47,3 +58,5 @@ export default function Home({setTitle, appAcc}){
     </form>
   </>);
 }
+
+export default Home;

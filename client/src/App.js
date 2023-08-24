@@ -66,7 +66,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/reset-password',
-    element: <Login setTitle={setTitle} />
+    element: <Login setTitle={setTitle} appAcc={appAcc} />
   },
   {
     path: '/settings',
