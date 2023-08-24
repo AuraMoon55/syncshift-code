@@ -2,18 +2,18 @@
 export default function Login({setTitle, appAcc}){
   setTitle('SyncShift Login');
 
-  const handleFirstSubmit = (e) => {
+  const handleFirstSubmit = async (e) => {
     e.preventDefault();
     const enal = e.target[0].value.trim();
 
-    appAcc.createRecovery(enal, "http://localhost:3000/reset-password").then((ra) => {
-      alert("Done")
-    });
-    window.location.href = '/';
+    const ra = await appAcc.createRecovery(enal, "http://localhost:3000/forgotpw");
+    if(Object.keys(ra).length > 0){
+      window.location.href = '/';
+    }
   }
 
 
-  const handleSecondSubmit = (e) => {
+  const handleSecondSubmit = async (e) => {
     e.preventDefault();
 
     let laf = window.location.search.substr(1).split("&");
@@ -25,10 +25,10 @@ export default function Login({setTitle, appAcc}){
     const enal = e.target[0].value.trim();
     const enaal = e.target[1].value.trim();
 
-    appAcc.updateRecovery(faf.userId, faf.secret, enal, enaal).then((ra) => {
-      let f = "Done"
-    });
-    window.location.href = '/';
+    const ra = await appAcc.updateRecovery(faf.userId, faf.secret, enal, enaal)
+    if(Object.keys(ra).length > 0){
+      window.location.href = '/';
+    }
   }
 
   if(window.location.search){

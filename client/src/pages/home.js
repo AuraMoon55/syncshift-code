@@ -11,7 +11,7 @@ const Home = ({setTitle, appAcc}) => {
       await appAcc.updatePrefs(ra)
       await appAcc.updateName(Object.values(ra)[0] + " " + Object.values(ra)[1])
     }catch(err){
-       alert(err.message);
+      console.log("OK")
     }
   }
   

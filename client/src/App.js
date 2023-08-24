@@ -65,7 +65,7 @@ const router = createBrowserRouter([
     element: <Worklog setTitle={setTitle} />
   },
   {
-    path: '/reset-password',
+    path: '/forgotpw',
     element: <Login setTitle={setTitle} appAcc={appAcc} />
   },
   {
