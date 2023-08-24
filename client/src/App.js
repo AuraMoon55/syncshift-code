@@ -12,6 +12,7 @@ import Setting from './pages/settings';
 import MyAccount from './pages/account';
 import {Client, Account} from 'appwrite';
 import {config} from './config';
+import Testa from './pages/test.js';
 
 const client = new Client();
 
@@ -71,6 +72,10 @@ const router = createBrowserRouter([
   {
     path: '/settings',
     element: <Setting setTitle={setTitle} appAcc={appAcc} />
+  },
+  {
+    path: '/test',
+    element: <Testa setTitle={setTitle} />
   }
 ])
 function App() {
