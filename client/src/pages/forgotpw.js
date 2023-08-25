@@ -1,3 +1,4 @@
+import {config} from '../config';
 
 export default function Login({setTitle, appAcc}){
   setTitle('SyncShift Login');
@@ -5,8 +6,11 @@ export default function Login({setTitle, appAcc}){
   const handleFirstSubmit = async (e) => {
     e.preventDefault();
     const enal = e.target[0].value.trim();
-
-    const ra = await appAcc.createRecovery(enal, "http://localhost:3000/forgotpw");
+    try{
+      const ra = await appAcc.createRecovery(enal, `${config.url}/forgotpw`);
+    }catch(err){
+      return alert(err.message)
+    }
     if(Object.keys(ra).length > 0){
       window.location.href = '/';
     }
@@ -24,8 +28,11 @@ export default function Login({setTitle, appAcc}){
 
     const enal = e.target[0].value.trim();
     const enaal = e.target[1].value.trim();
-
-    const ra = await appAcc.updateRecovery(faf.userId, faf.secret, enal, enaal)
+    try{
+      const ra = await appAcc.updateRecovery(faf.userId, faf.secret, enal, enaal)
+    }catch(err){
+      return alert(err.message)
+    }
     if(Object.keys(ra).length > 0){
       window.location.href = '/';
     }
@@ -33,7 +40,7 @@ export default function Login({setTitle, appAcc}){
 
   if(window.location.search){
 
-  return(<body>
+  return(<>
     <h1 className="title">SyncShift</h1>
     <h3 className="headline">Shifting Management Tools</h3>
     <form onSubmit={handleSecondSubmit} >
@@ -52,11 +59,11 @@ export default function Login({setTitle, appAcc}){
         </div> 
       </div>
     </form>
-    </body>)
+    </>)
  
   }
 
-  return(<body>
+  return(<>
     <h1 className="title">SyncShift</h1>
     <h3 className="headline">Shifting Management Tools</h3>
     <form onSubmit={handleFirstSubmit} >
@@ -73,6 +80,6 @@ export default function Login({setTitle, appAcc}){
         </div> 
       </div>
     </form>
-    </body>)
+    </>)
 
 }

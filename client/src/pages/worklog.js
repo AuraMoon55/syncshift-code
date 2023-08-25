@@ -1,6 +1,25 @@
-import './worklog.css'
-export default function worklog({setTitle}){
+import {useState, useEffect} from 'react';
+import {useCookies} from 'react-cookie';
+import {config} from '../config';
+
+export default function Worklog({setTitle, appDb}){
   setTitle('SyncShift WorkLog');
+
+  const [taskos, setTaskos] = useState([]);
+  const [user] = useCookies(['user']);
+  const [taskas, setTaskas] = useCookies(['tasks'])
+
+  useEffect(() => {
+    if(taskas.tasks){
+      setTaskos(taskas.tasks);
+    }else{
+      appDb.listDocuments(config.databaseId, user.collection).then((ff) => {
+        setTaskos(ff);
+        setTaskas('tasks', ff.documents);
+      });
+    };
+  },[taskos]);
+
   return (<>
   <h1 className="title">SyncShift</h1>
   <h3 className="headline">Shifting Management Tools</h3>
@@ -16,34 +35,33 @@ export default function worklog({setTitle}){
     </center>
 </div>
 
-
-<table style={{width:"60%", marginLeft:"auto", marginRight:"auto"}}>
-  <center>
-  <tr>
-    <th>Label</th>
-    <th>Start Time:</th>
-    <th>End Time:</th>
-    <th>Time Spent:</th>
-  </tr>
-  <tr>
-    <td>Gym</td>
-    <td>9:30</td>
-    <td>11:15</td>
-    <td>1hr 45mins</td>
-  </tr>
-  <tr>
-    <td>Prag Scrum and Editing</td>
-    <td>12:00</td>
-    <td>1:00</td>
-    <td>1hr</td>
-  </tr>
-  <tr>
-    <td>Reading SAT Prep</td>
-    <td>1:30</td>
-    <td>2:30</td>
-    <td>1hr</td>
-  </tr>
-  </center>
-</table>
+<div className="mt-6">
+  <h2 className="mb-2 text-xl font-bold">WorkLog</h2>
+  <table className="w-full border-collapse">
+    <thead>
+      <tr className="bg-gray-200">
+        <th className="px-4 py-2">Task</th>
+        <th className="px-4 py-2">Date & Day Started</th>
+        <th className="px-4 py-2">Time Started On</th>
+        <th className="px-4 py-2">Time Ended</th>
+        <th className="px-4 py-2">Date Ended</th>
+        <th className="px-4 py-2">Time Spent</th> 
+      </tr>
+    </thead>
+    <tbody id="taskHistoryTableBody">
+      {taskos && taskos.map((i) => {
+        return (<tr>
+            <td className="border px-4 py-2">{i.name}</td>
+            <td className="border px-4 py-2">{i.startDate}</td>
+            <td className="border px-4 py-2">{i.startTime}</td>
+            <td className="border px-4 py-2">{i.endTime}</td>
+            <td className="border px-4 py-2">{i.endDate}</td>
+            <td className="border px-4 py-2">{i.totalTime}</td>
+          </tr>)
+      })
+      }
+    </tbody>
+  </table>
+</div>
 </>)
 }

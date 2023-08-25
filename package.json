@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "express-uncapitalize": "^1.0.0",
+    "node-appwrite": "^9.0.0",
+    "qs": "^6.11.2"
+  },
+  "name": "Syncshift",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "client": "yarn --cwd ./client start",
+    "start": "concurrently \"yarn server\" \"yarn client\""
+  },
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}

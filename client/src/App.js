@@ -1,3 +1,4 @@
+import './index.css';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import About from './pages/about';
 import Checkin from './pages/checkin';
@@ -10,15 +11,15 @@ import ToS from './pages/tos';
 import Worklog from './pages/worklog';
 import Setting from './pages/settings';
 import MyAccount from './pages/account';
-import {Client, Account} from 'appwrite';
+import {Client, Account, Databases} from 'appwrite';
 import {config} from './config';
-import Testa from './pages/test.js';
 
 const client = new Client();
 
 client.setEndpoint('https://cloud.appwrite.io/v1').setProject(config.projectId);
 
 const appAcc = new Account(client);
+const appDb = new Databases(client);
 
 function setTitle(title){
   document.title = title;
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/checkin',
-    element: <Checkin setTitle={setTitle} />
+    element: <Checkin setTitle={setTitle} appDb={appDb} />
   },
   {
     path: '/checkout',
@@ -63,7 +64,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/worklog',
-    element: <Worklog setTitle={setTitle} />
+    element: <Worklog setTitle={setTitle} appDb={appDb} />
   },
   {
     path: '/forgotpw',
@@ -72,10 +73,6 @@ const router = createBrowserRouter([
   {
     path: '/settings',
     element: <Setting setTitle={setTitle} appAcc={appAcc} />
-  },
-  {
-    path: '/test',
-    element: <Testa setTitle={setTitle} />
   }
 ])
 function App() {

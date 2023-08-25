@@ -1,5 +1,6 @@
 export const config = {
   projectId:"64e44da4e1140bd3d479",
   databaseId: "64e44e1b577ca7d67bac",
-  apiKey: "a05fa39614d4815f58dd37caa0e2385dcbc7b0ced1cd875cc48d63a7417434e915a4fb82d9e897ca4d3edc782303b402fa9ffff81ac53744769b4be36b3dec5f79c1b45bea1720a6d48608dc3c55240130fdc9fc9022fcb4edecc0e3976e6c3cb87398b1daebe5d5aef9e50927fadd86a1ad2eee14f692151cf6136d0f4cbdc3"
+  url: 'http://localhost:3000',
+  apiUrl: 'http://localhost:8080'
 }

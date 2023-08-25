@@ -14,9 +14,21 @@ export default function Register({setTitle, appAcc}){
     if(pass1 !== pass2){
       return alert('Passwords must match');
     }
-    const accCreate = appAcc.create(ID.unique(), email, pass1, JSON.stringify({firstName: fname, lastName: lname})).then((raf) => {
-       window.location.href = '/login';
-    })
+    try{
+      appAcc.create(
+        ID.unique(),
+        email,
+        pass1,
+        JSON.stringify({
+          firstName: fname,
+          lastName: lname
+        })
+      ).then((raf) => {
+         window.location.href = '/login';
+      });
+    }catch(err){
+      return alert(err.message)
+    }
   };
   return (<>
   <h1 className="title">SyncShift</h1>

@@ -1,9 +1,13 @@
 import {useCookies} from 'react-cookie';
+import {config} from '../config'
 
 const Home = ({setTitle, appAcc}) => {
   const [user, setUser] = useCookies(['user']);
   setTitle('SyncShift Login');
 
+
+  /** BackEnd Work **/
+  
   const lala = async () => {
     const era = await appAcc.get()
     try{
@@ -20,12 +24,21 @@ const Home = ({setTitle, appAcc}) => {
     const email = e.target[0].value.trim();
     const pass = e.target[1].value.trim();
 
-    const er = await appAcc.createEmailSession(email, pass)
-    console.log(er);
-    setUser('name', JSON.stringify(er))
+    try{
+      const er = await appAcc.createEmailSession(email, pass)
+    }catch(err){
+      return alert(err.message)
+    }
+    let resp = await fetch(`${config.apiUrl}/api/getCol?userId=${er.userId}`)
+    if(!resp.ok){
+      resp = await fetch(`${config.apiUrl}/api/col?userId=${er.userId}`)
+    }
+    resp = await resp.json();
+    setUser('name', er);
+    setUser('collection', resp.colId)
     await lala();
     window.location.href = '/checkin';
-    
+
   };
    const lemao = () => {
      if(Object.entries(user).length > 0){
