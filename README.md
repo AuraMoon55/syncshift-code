@@ -1,6 +1,4 @@
 # How To Run 
-
-  - `cd client`
   
   - `yarn install` # To install Dependencies
   
