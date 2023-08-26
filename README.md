@@ -1,5 +1,10 @@
 # How To Run 
   
-  - `yarn install` # To install Dependencies
+  - `yarn install` && `yarn --cwd ./client` # To install Dependencies
   
   - `yarn start` # Run the app locally
+
+# How To Build
+
+ - `yarn --cwd ./client build`
+ - `node index.js`
