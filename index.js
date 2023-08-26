@@ -58,7 +58,7 @@ app.get("/api/col", async (req, res) => {
   });
 });
 
-if(process.env.NODE_ENV === 'production){
+if(process.env.NODE_ENV === 'production'){
 app.get('*', async (req, res, next) => {
   res.sendFile(path.join(buildPath, 'index.html'));
 });
