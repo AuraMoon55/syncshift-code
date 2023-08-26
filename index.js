@@ -22,8 +22,8 @@ app.listen(8080, () => {
 });
 
 app.get('/api/getCol', (req, res) => {
-  appDb.listCollections(config.databaseId, search=req.query.userId).then((resp) => {
-    let f = resp.collections.filter((i) => {return (i.name.trim() === req.quert.userId)});
+  appDb.listCollections(config.databaseId).then((resp) => {
+    let f = resp.collections.filter((i) => {return (i.name.trim() === req.query.userid)});
     if(f.length < 1){
       return res.status(504).json({
         status: "error",
