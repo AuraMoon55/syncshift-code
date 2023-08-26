@@ -1,6 +1,6 @@
 # How To Run 
   
-  - `yarn install` && `yarn --cwd ./client` # To install Dependencies
+  - `yarn install` && `yarn --cwd ./client install` # To install Dependencies
   
   - `yarn start` # Run the app locally
 
