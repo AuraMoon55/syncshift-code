@@ -5,6 +5,7 @@ const compression = require('compression');
 const config = require('./config');
 const app = express();
 const client = new Client();
+const path = require("path");
 
 client.setEndpoint('https://cloud.appwrite.io/v1').setProject(config.projectId).setKey(config.apiKey);
 
@@ -16,6 +17,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.set('json spaces', 2)
 
+const buildPath = path.normalize(path.join(__dirname, './client/build'));
+app.use(express.static(buildPath));
 
 app.listen(8080, () => {
   console.log('Syncshift Api running at 8080');
@@ -53,4 +56,9 @@ app.get("/api/col", async (req, res) => {
     status: "OK",
     colId: ren["$id"]
   });
+});
+
+
+app.get('(/*)?', async (req, res, next) => {
+  res.sendFile(path.join(buildPath, 'index.html'));
 });
