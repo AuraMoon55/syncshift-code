@@ -1,4 +1,4 @@
-const {Client, ID, Databases} = require('node-appwrite');
+const {Client, ID, Databases, Permission, Role} = require('node-appwrite');
 const express = require('express');
 const cors = require('cors');
 const compression = require('compression');
@@ -40,7 +40,7 @@ app.get('/api/getCol', (req, res) => {
 
 
 app.get("/api/col", async (req, res) => {
-  let ren = await appDb.createCollection(config.databaseId, ID.unique(), req.query.userid)
+  let ren = await appDb.createCollection(config.databaseId, ID.unique(), req.query.userid, [Permission.read(Role.user(req.query.userid)), Permission.write(Role.user(req.query.userid))])
   await appDb.createStringAttribute(config.databaseId, ren['$id'], 'startString', 128, true);
   await appDb.createStringAttribute(config.databaseId, ren['$id'], 'startDate', 128, true);
   await appDb.createStringAttribute(config.databaseId, ren['$id'], 'startTime', 128, true);
