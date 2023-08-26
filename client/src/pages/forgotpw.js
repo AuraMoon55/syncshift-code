@@ -8,11 +8,11 @@ export default function Login({setTitle, appAcc}){
     const enal = e.target[0].value.trim();
     try{
       const ra = await appAcc.createRecovery(enal, `${config.url}/forgotpw`);
+      if(Object.keys(ra).length > 0){
+        window.location.href = '/';
+      }
     }catch(err){
       return alert(err.message)
-    }
-    if(Object.keys(ra).length > 0){
-      window.location.href = '/';
     }
   }
 
@@ -30,11 +30,11 @@ export default function Login({setTitle, appAcc}){
     const enaal = e.target[1].value.trim();
     try{
       const ra = await appAcc.updateRecovery(faf.userId, faf.secret, enal, enaal)
+      if(Object.keys(ra).length > 0){
+        window.location.href = '/';
+      }
     }catch(err){
       return alert(err.message)
-    }
-    if(Object.keys(ra).length > 0){
-      window.location.href = '/';
     }
   }
 

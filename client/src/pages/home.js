@@ -23,21 +23,21 @@ const Home = ({setTitle, appAcc}) => {
     e.preventDefault();
     const email = e.target[0].value.trim();
     const pass = e.target[1].value.trim();
-
+    
     try{
       const er = await appAcc.createEmailSession(email, pass)
+      let resp = await fetch(`${config.apiUrl}/api/getCol?userid=${er.userId}`)
+      if(!resp.ok){
+        resp = await fetch(`${config.apiUrl}/api/col?userid=${er.userId}`)
+      }
+      resp = await resp.json();
+      setUser('name', er);
+      setUser('collection', resp.colId)
+      await lala();
+      window.location.href = '/checkin';
     }catch(err){
       return alert(err.message)
     }
-    let resp = await fetch(`${config.apiUrl}/api/getCol?userId=${er.userId}`)
-    if(!resp.ok){
-      resp = await fetch(`${config.apiUrl}/api/col?userId=${er.userId}`)
-    }
-    resp = await resp.json();
-    setUser('name', er);
-    setUser('collection', resp.colId)
-    await lala();
-    window.location.href = '/checkin';
 
   };
    const lemao = () => {

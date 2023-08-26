@@ -9,6 +9,7 @@ export default function Worklog({setTitle, appDb}){
   const [user] = useCookies(['user']);
   const [taskas, setTaskas] = useCookies(['tasks'])
 
+
   useEffect(() => {
     if(taskas.tasks){
       setTaskos(taskas.tasks);
@@ -18,7 +19,7 @@ export default function Worklog({setTitle, appDb}){
         setTaskas('tasks', ff.documents);
       });
     };
-  },[taskos]);
+  },[taskos, appDb, taskas, user, setTaskas]);
 
   return (<>
   <h1 className="title">SyncShift</h1>
@@ -49,7 +50,7 @@ export default function Worklog({setTitle, appDb}){
       </tr>
     </thead>
     <tbody id="taskHistoryTableBody">
-      {taskos && taskos.map((i) => {
+      {(taskos.length > 0) && taskos.map((i) => {
         return (<tr>
             <td className="border px-4 py-2">{i.name}</td>
             <td className="border px-4 py-2">{i.startDate}</td>

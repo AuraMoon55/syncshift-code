@@ -10,8 +10,9 @@ export default function Setting({setTitle, appAcc}){
 
     appAcc.deleteSession("current").then(() => {
       for(const i of Object.keys(user)){
-        remUser(i)
+        remUser(i);
       };
+      console.log(Object.keys(user));
       window.location.href='/'
     });
   }
