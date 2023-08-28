@@ -16,7 +16,7 @@
     "start": "concurrently \"yarn server\" \"yarn client\"",
     "build": "yarn --cwd ./client build",
     "prod": "NODE_ENV=production node index.js",
-    "install-dep": "concurrently \"yarn install\" \"yarn --cwd ./client install\""
+    "install-dep": "yarn install&&yarn --cwd ./client install"
   },
   "license": "MIT",
   "private": true,
