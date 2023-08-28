@@ -1,4 +1,7 @@
 {
+    "installCommand": "yarn install-dep",
+    "buildCommand": "yarn build",
+    "outputDirectory": ".",
     "builds":[
         {
             "src":"./index.js",
