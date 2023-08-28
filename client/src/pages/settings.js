@@ -9,6 +9,7 @@ export default function Setting({setTitle, appAcc}){
     e.preventDefault();
 
     appAcc.deleteSession("current").then(() => {
+      setUser('name', {});
       for(const i of Object.keys(user)){
         remUser(i);
       };
